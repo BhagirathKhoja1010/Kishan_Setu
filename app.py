@@ -351,8 +351,20 @@ def create_booking():
             "message": "Invalid crop selected"
         }), 400
 
-    # =====================================================
-    # QUANTITY
-    # =====================================================
+    # -----------------------------
+# QUANTITY
+# -----------------------------
 
-    try:
+try:
+    quantity = float(data["quantity"])
+except (ValueError, TypeError):
+    return jsonify({
+        "success": False,
+        "message": "Quantity must be a number"
+    }), 400
+
+if quantity <= 0 or quantity > 500:
+    return jsonify({
+        "success": False,
+        "message": "Quantity must be between 1 and 500 quintals"
+    }), 400
